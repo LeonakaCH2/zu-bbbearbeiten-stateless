@@ -38,6 +38,7 @@ def test_add_with_description():
     item = helper.items[-1]
     assert item.description == description
 
+
 def test_add_with_category():
     helper.items.clear()
     text = "Testaufgabe mit Kategorie"
@@ -46,3 +47,21 @@ def test_add_with_category():
     helper.add(text=text, date_str=date, category=category)
     item = helper.items[-1]
     assert item.category == category
+
+
+def test_get_csv():
+    helper.items.clear()
+    helper.add(
+        text="Mathe lernen",
+        date_str="2025-06-01",
+        category="Schule",
+        description="Algebra, Geometrie",
+    )
+    csv = helper.get_csv()
+
+    # CSV sollte Kopfzeile + eine Zeile haben
+    lines = csv.strip().splitlines()
+    assert lines[0] == "text,category,date,description,isCompleted"
+    assert "Mathe lernen" in lines[1]
+    assert "Schule" in lines[1]
+    assert "Algebra, Geometrie" in lines[1]

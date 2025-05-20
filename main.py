@@ -14,8 +14,8 @@ def index():
 def add():
     text = request.form.get("text")
     date_str = request.form.get("date")
-    category = request.form.get("category")        
-    description = request.form.get("description")     
+    category = request.form.get("category")
+    description = request.form.get("description")
     helper.add(text=text, date_str=date_str, category=category, description=description)
     return redirect(url_for("index"))
 
@@ -24,3 +24,12 @@ def add():
 def update(index):
     helper.update(index)
     return redirect(url_for("index"))
+
+
+@app.route("/download")
+def get_csv():
+    return Response(
+        helper.get_csv(),
+        mimetype="text/csv",
+        headers={"Content-disposition": "attachment; filename=zu-bbbearbeiten.csv"},
+    )
