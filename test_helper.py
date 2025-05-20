@@ -28,6 +28,16 @@ def test_sort():
         assert helper.items[i].date < helper.items[i + 1].date
 
 
+def test_add_with_description():
+    helper.items.clear()
+    text = "Testaufgabe mit Beschreibung"
+    date = "2025-12-24"
+    description = "Dies ist die Beschreibung"
+
+    helper.add(text=text, date_str=date, description=description)
+    item = helper.items[-1]
+    assert item.description == description
+
 def test_add_with_category():
     helper.items.clear()
     text = "Testaufgabe mit Kategorie"
