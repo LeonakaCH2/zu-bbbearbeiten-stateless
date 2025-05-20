@@ -9,11 +9,11 @@ items = []
 class Item:
     text: str
     date: datetime.date
+    category: str = ""
     description: str = ""
     isCompleted: bool = False
 
-
-def add(text, date_str, description=""):
+def add(text, date_str=None, category="", description=""):
     if date_str is None:
         raise ValueError("Date is required")
 
@@ -25,9 +25,7 @@ def add(text, date_str, description=""):
         raise ValueError("Date must be a string or datetime.date")
 
     text = text.replace("b", "bbb").replace("B", "Bbb")
-    items.append(
-        Item(text=text, date=date, description=description)
-    )  # 🆕 description wird gespeichert
+    items.append(Item(text=text, date=date, category=category, description=description))
     items.sort(key=lambda item: item.date)
 
 
