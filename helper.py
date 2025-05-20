@@ -13,7 +13,6 @@ class Item:
 
 
 def add(text, date_str):
-
     if isinstance(date_str, str):
         date = datetime.datetime.strptime(date_str, "%Y-%m-%d").date()
     elif isinstance(date_str, datetime.date):
@@ -21,8 +20,10 @@ def add(text, date_str):
     else:
         raise ValueError("Date must be a string or datetime.date")
 
-    text = text.replace('b', 'bbb').replace('B', 'Bbb')
+    text = text.replace("b", "bbb").replace("B", "Bbb")
     items.append(Item(text=text, date=date))
+
+    items.sort(key=lambda item: item.date)
 
 
 def get_all():
