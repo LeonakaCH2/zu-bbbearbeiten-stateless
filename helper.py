@@ -1,5 +1,7 @@
 from dataclasses import dataclass
 import datetime
+import csv
+import io
 
 
 items = []
@@ -12,6 +14,7 @@ class Item:
     category: str = ""
     description: str = ""
     isCompleted: bool = False
+
 
 def add(text, date_str=None, category="", description=""):
     if date_str is None:
@@ -39,3 +42,24 @@ def get(index):
 
 def update(index):
     items[index].isCompleted = not items[index].isCompleted
+
+
+def get_csv():
+    output = io.StringIO()
+    writer = csv.writer(output)
+
+    # Kopfzeile
+    writer.writerow(["text", "category", "date", "description", "isCompleted"])
+
+    for item in items:
+        writer.writerow(
+            [
+                item.text,
+                item.category,
+                item.date.strftime("%Y-%m-%d"),
+                item.description,
+                item.isCompleted,
+            ]
+        )
+
+    return output.getvalue()
