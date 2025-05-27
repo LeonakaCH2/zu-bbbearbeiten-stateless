@@ -44,11 +44,11 @@
             </span>
 
             {% if item.isCompleted %}
-            <a class="ui green left corner label" href="/update/{{loop.index0}}">
+            <a class="ui green left corner label" href="/update/{{item.id}}">
                 <i class="check square outline icon"></i>
             </a>
             {% else %}
-            <a class="ui red left corner label" href="/update/{{loop.index0}}">
+            <a class="ui red left corner label" href="/update/{{item.id}}">
                 <i class="square outline icon"></i>
             </a>
             {% endif %}

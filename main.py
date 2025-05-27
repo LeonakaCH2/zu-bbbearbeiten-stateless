@@ -1,7 +1,22 @@
 import helper
 from flask import Flask, request, Response, render_template, redirect, url_for
+from database import db
+import os
 
 app = Flask(__name__)
+
+app.config[
+    "SQLALCHEMY_DATABASE_URI"
+] = "postgresql+psycopg2://{dbuser}:{dbpass}@{dbhost}/{dbname}".format(
+    dbuser=os.environ["DBUSER"],
+    dbpass=os.environ["DBPASS"],
+    dbhost=os.environ["DBHOST"],
+    dbname=os.environ["DBNAME"],
+)
+db.init_app(app)
+
+with app.app_context():
+    db.create_all()
 
 
 @app.route("/")
@@ -33,6 +48,7 @@ def get_csv():
         mimetype="text/csv",
         headers={"Content-disposition": "attachment; filename=zu-bbbearbeiten.csv"},
     )
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0")
