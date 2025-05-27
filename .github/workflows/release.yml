@@ -23,9 +23,9 @@ jobs:
     runs-on: windows-latest
     needs: publish
     timeout-minutes: 10
-  permissions:
-    contents: read
-    packages: write
+    permissions:
+      contents: read
+      packages: write
 
 
     steps:
